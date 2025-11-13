@@ -4,7 +4,10 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import EmailVerify from "./pages/EmailVerify"
 import ResetPassword from "./pages/ResetPassword"
+import Cart from "./pages/Cart"
+import Checkout from "./pages/Checkout"
 import { ToastContainer, Slide } from "react-toastify"
+import OrderTracking from "./components/OrderTracking.jsx"
 import "react-toastify/dist/ReactToastify.css"
 
 const App = () => {
@@ -29,6 +32,14 @@ const App = () => {
 					element={<Home />}
 				/>
 				<Route
+					path='/cart'
+					element={<Cart />}
+				/>
+				<Route
+					path='/checkout'
+					element={<Checkout />}
+				/>
+				<Route
 					path='/login'
 					element={<Login />}
 				/>
@@ -39,6 +50,10 @@ const App = () => {
 				<Route
 					path='/reset-password'
 					element={<ResetPassword />}
+				/>
+				<Route
+					path='/order/:id'
+					element={<OrderTracking />}
 				/>
 			</Routes>
 		</div>

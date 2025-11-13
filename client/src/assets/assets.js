@@ -1,11 +1,12 @@
 import arrow_icon from "./arrow_icon.svg"
 import lock_icon from "./lock_icon.svg"
-import logo from "./logo.svg"
+import logo from "./logo.png"
 import mail_icon from "./mail_icon.svg"
 import person_icon from "./person_icon.svg"
 import hand_wave from "./hand_wave.png"
 import header_img from "./header_img.png"
 import user_icon from "./user.svg"
+import new_cart_icon from "./new_cart_icon.png"
 
 export const assets = {
 	arrow_icon,
@@ -16,4 +17,5 @@ export const assets = {
 	hand_wave,
 	header_img,
 	user_icon,
+	new_cart_icon,
 }
