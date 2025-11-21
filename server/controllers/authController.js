@@ -42,7 +42,7 @@ export const register = async (req, res) => {
 			text: `Добро Пожаловать в mern-auth. Ваш аккаунт создан с id: ${user._id}`,
 		}
 		await transporter.sendMail(mailOptions)
-		return res.json({ success: true })
+		return res.json({ success: true, token })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}
@@ -78,7 +78,7 @@ export const login = async (req, res) => {
 			sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 			maxAge: 7 * 24 * 60 * 60 * 1000,
 		})
-		return res.json({ success: true })
+		return res.json({ success: true, token })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}
@@ -92,7 +92,7 @@ export const logout = async (req, res) => {
 			secure: process.env.NODE_ENV === "production",
 			sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 		})
-		return res.json({ success: true, message: "Вы вышли из аккаунта" })
+		return res.json({ success: true, token, message: "Вы вышли из аккаунта" })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}
@@ -130,6 +130,7 @@ export const sendVerifyOtp = async (req, res) => {
 		await transporter.sendMail(mailOption)
 		return res.json({
 			success: true,
+			token,
 			message: "Код подтверждения отправлен на вашу почту",
 		})
 	} catch (error) {
@@ -164,7 +165,7 @@ export const verifyEmail = async (req, res) => {
 		user.verifyOtp = ""
 		user.verifyOtpExpireAt = 0
 		await user.save()
-		return res.json({ success: true, message: "Аккаунт подтверждён" })
+		return res.json({ success: true, token, message: "Аккаунт подтверждён" })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}
@@ -173,7 +174,7 @@ export const verifyEmail = async (req, res) => {
 // Проверка авторизации
 export const isAuthenticated = async (req, res) => {
 	try {
-		return res.json({ success: true })
+		return res.json({ success: true, token })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}
@@ -211,6 +212,7 @@ export const sendResetOtp = async (req, res) => {
 		await transporter.sendMail(mailOption)
 		return res.json({
 			success: true,
+			token,
 			message: "Код для сброса пароля отправлен на вашу почту",
 		})
 	} catch (error) {
@@ -246,7 +248,7 @@ export const resetPassword = async (req, res) => {
 		user.resetOtp = ""
 		user.resetOtpExpireAt = 0
 		await user.save()
-		return res.json({ success: true, message: "Пароль обновлен" })
+		return res.json({ success: true, token, message: "Пароль обновлен" })
 	} catch (error) {
 		return res.json({ success: false, message: error.message })
 	}

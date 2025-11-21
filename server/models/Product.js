@@ -25,7 +25,7 @@ const productSchema = mongoose.Schema({
 		{
 			public_id: {
 				type: String,
-				required: true,
+				default: "",
 			},
 			url: {
 				type: String,
@@ -33,14 +33,6 @@ const productSchema = mongoose.Schema({
 			},
 		},
 	],
-	category: {
-		type: String,
-		required: [true, "Пожалуйста, введите категорию товара"],
-		enum: {
-			values: ["Электроника", "Одежда", "Книги", "Прочее"],
-			message: "Пожалуйста, выберите корректную категорию товара",
-		},
-	},
 	stock: {
 		type: Number,
 		required: [true, "Пожалуйста, введите количество товара"],

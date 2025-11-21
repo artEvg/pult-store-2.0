@@ -3,3 +3,11 @@
 * {
 	font-family: "Roboto Slab", serif;
 }
+
+.page-content {
+  margin-top: 80px;
+}
+
+body {
+  background-color: #E6E2DD;
+}

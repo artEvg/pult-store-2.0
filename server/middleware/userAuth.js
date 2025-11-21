@@ -1,28 +1,38 @@
 import jwt from "jsonwebtoken"
+import User from "../models/User.js"
 
 const userAuth = async (req, res, next) => {
-	const { token } = req.cookies
-	if (!token) {
-		// return res.status(401).json({
-		// 	success: false,
-		// 	message: "Вы не авторизованы. Пожалуйста, войдите в аккаунт снова",
-		// })
-	}
 	try {
-		const tokenDecode = jwt.verify(token, process.env.JWT_SECRET)
+		// Получение токена из заголовка или cookie
+		const token = req.headers.authorization?.split(" ")[1] || req.cookies?.token
 
-		if (tokenDecode.id) {
-			req.userId = tokenDecode.id
-		} else {
-			// return res.status(401).json({
-			// 	success: false,
-			// 	message: "Вы не авторизованы. Пожалуйста, войдите в аккаунт снова",
-			// })
+		if (!token) {
+			return res
+				.status(401)
+				.json({ success: false, message: "Токен не найден" })
 		}
+
+		// Верификация токена
+		const decoded = jwt.verify(token, process.env.JWT_SECRET)
+		// Получение пользователя по ID из токена
+		const user = await User.findById(decoded.id)
+
+		if (!user) {
+			return res
+				.status(401)
+				.json({ success: false, message: "Пользователь не найден" })
+		}
+
+		// Добавляем данные пользователя в req.user
+		req.user = user
+		req.userId = decoded.id // или req.user.id
 		next()
 	} catch (error) {
-		// return res.status(401).json({ success: false, message: error.message })
+		return res.status(401).json({
+			success: false,
+			message: "Ошибка авторизации",
+			error: error.message,
+		})
 	}
 }
-
 export default userAuth

@@ -88,6 +88,8 @@ export const getAllOrders = async (req, res, next) => {
 		totalAmount,
 		orders,
 	})
+	console.log("getAllOrders called by user:", req.user)
+
 }
 
 // Обновить статус заказа (админ)

@@ -24,6 +24,7 @@ const Login = () => {
 					password,
 				})
 				if (data.success) {
+					localStorage.setItem("token", data.token)
 					setIsLoggedin(true)
 					getUserData()
 					navigate("/")
@@ -36,6 +37,7 @@ const Login = () => {
 					password,
 				})
 				if (data.success) {
+					localStorage.setItem("token", data.token)
 					setIsLoggedin(true)
 					getUserData()
 					navigate("/")

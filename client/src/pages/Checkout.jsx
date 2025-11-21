@@ -131,7 +131,7 @@ const Checkout = () => {
 					<h2>Адрес доставки</h2>
 
 					<div className='form-group'>
-						<label>Адрес*</label>
+						<label>Адрес:</label>
 						<input
 							type='text'
 							name='address'

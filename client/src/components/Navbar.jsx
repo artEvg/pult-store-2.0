@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { assets } from "../assets/assets.js"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { AppContext } from "../context/AppContext.jsx"
 import axios from "axios"
 import "./Navbar.css"
@@ -8,6 +8,7 @@ import { toast } from "react-toastify"
 
 const Navbar = () => {
 	const navigate = useNavigate()
+	const location = useLocation()
 	const { userData, setUserData, setIsLoggedin, cartItemCount } =
 		useContext(AppContext)
 
@@ -47,6 +48,32 @@ const Navbar = () => {
 				alt='logo image'
 				onClick={() => navigate("/")}
 			/>
+			<div className='flex justify-center items-center'>
+				<button
+					onClick={() => navigate("/")}
+					className={`navbar-link mr-5 ${
+						location.pathname === "/" ? "navbar-link-active" : ""
+					}`}
+					aria-label='Главная'>
+					Главная
+				</button>
+				<button
+					onClick={() => navigate("/about")}
+					className={`navbar-link mr-5 ${
+						location.pathname === "/about" ? "navbar-link-active" : ""
+					}`}
+					aria-label='О нас'>
+					О нас
+				</button>
+				<button
+					onClick={() => navigate("/contact-us")}
+					className={`navbar-link ${
+						location.pathname === "/contact-us" ? "navbar-link-active" : ""
+					}`}
+					aria-label='Обратная связь'>
+					Обратная связь
+				</button>
+			</div>
 			<div className='flex items-center gap-4'>
 				{/* Иконка корзины */}
 				<button
@@ -64,6 +91,15 @@ const Navbar = () => {
 						</span>
 					)}
 				</button>
+				<button
+					onClick={() => navigate("/order")}
+					className='orders-button'
+					aria-label='Заказы'>
+					<img
+						src={assets.order}
+						alt='Заказы'
+					/>
+				</button>
 
 				{userData ? (
 					<div className='w-8 h-8 flex justify-center items-center rounded-full bg-black text-white relative group cursor-pointer'>
@@ -77,11 +113,6 @@ const Navbar = () => {
 										Подтвердить
 									</li>
 								)}
-								<li
-									onClick={() => navigate("/order")}
-									className='py-1 px-2 hover:bg-gray-200 cursor-pointer border-b pb-1'>
-									Заказы
-								</li>
 								<li
 									onClick={logout}
 									className='py-1 px-2 hover:bg-gray-200 cursor-pointer rounded-b-lg pr-10'>

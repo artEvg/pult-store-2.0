@@ -55,7 +55,7 @@
 	top: 0;
 	right: 0;
 	transform: translate(25%, -25%);
-	background-color: #dc2626; /* красный */
+	background-color: #dc2626;
 	color: white;
 	border-radius: 9999px;
 	width: 18px;
@@ -67,3 +67,50 @@
 	justify-content: center;
 	pointer-events: none;
 }
+
+.navbar-button {
+  color: #555;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.3s, background-color 0.3s;
+}
+.navbar-button:hover {
+  color: white;
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.navbar-link {
+  color: #555;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.3s, background-color 0.3s;
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.navbar-link:hover,
+.navbar-link:focus {
+  color: white;
+  background-color: #007bff;
+  outline: none;
+}
+
+.navbar-link-active {
+  color: white;
+  background-color: #0056b3;
+  font-weight: 700;
+}
+
+.orders-button {
+  width: 38px;
+	color: #555;
+	cursor: pointer;
+	filter: invert(.25);
+}
+

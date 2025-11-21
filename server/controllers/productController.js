@@ -45,50 +45,51 @@ export const getProductDetails = async (req, res, next) => {
 	})
 }
 
-// Создать товар (только для админа)
 export const createProduct = async (req, res, next) => {
-	req.body.user = req.user.id
-
-	const product = await Product.create(req.body)
-
-	res.status(201).json({
-		success: true,
-		product,
-	})
+	try {
+		req.body.user = req.user.id
+		const product = await Product.create(req.body)
+		res.status(201).json({
+			success: true,
+			product,
+		})
+	} catch (error) {
+		next(error)
+	}
 }
 
-// Обновить товар (только для админа)
 export const updateProduct = async (req, res, next) => {
-	let product = await Product.findById(req.params.id)
-
-	if (!product) {
-		return next(new ErrorHandler("Товар не найден", 404))
+	try {
+		let product = await Product.findById(req.params.id)
+		if (!product) {
+			return next(new ErrorHandler("Товар не найден", 404))
+		}
+		product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+			runValidators: true,
+			useFindAndModify: false,
+		})
+		res.status(200).json({
+			success: true,
+			product,
+		})
+	} catch (error) {
+		next(error)
 	}
-
-	product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-		new: true,
-		runValidators: true,
-		useFindAndModify: false,
-	})
-
-	res.status(200).json({
-		success: true,
-		product,
-	})
 }
 
-// Удалить товар (только для админа)
 export const deleteProduct = async (req, res, next) => {
-	const product = await Product.findById(req.params.id)
-
-	if (!product) {
-		return next(new ErrorHandler("Товар не найден", 404))
+	try {
+		const product = await Product.findById(req.params.id)
+		if (!product) {
+			return next(new ErrorHandler("Товар не найден", 404))
+		}
+		await Product.findByIdAndDelete(req.params.id)
+		res.status(200).json({
+			success: true,
+			message: "Товар успешно удален",
+		})
+	} catch (error) {
+		next(error)
 	}
-
-	await Product.findByIdAndDelete(req.params.id)
-
-	res.status(200).json({
-		success: true,
-		message: "Товар успешно удален",
-	})
 }

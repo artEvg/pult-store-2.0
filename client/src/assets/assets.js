@@ -7,6 +7,7 @@ import hand_wave from "./hand_wave.png"
 import header_img from "./header_img.png"
 import user_icon from "./user.svg"
 import new_cart_icon from "./new_cart_icon.png"
+import order from "./order.png"
 
 export const assets = {
 	arrow_icon,
@@ -18,4 +19,5 @@ export const assets = {
 	header_img,
 	user_icon,
 	new_cart_icon,
+	order,
 }

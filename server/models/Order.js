@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
 	totalPrice: { type: Number, required: true },
 	paidAt: Date,
 	user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-	orderStatus: { type: String, default: "Processing" },
+	orderStatus: { type: String, default: "Обработка" },
 	deliveredAt: Date,
 	createdAt: { type: Date, default: Date.now },
 })
