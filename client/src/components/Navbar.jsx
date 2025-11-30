@@ -9,14 +9,15 @@ import { toast } from "react-toastify"
 const Navbar = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
-	const { userData, setUserData, setIsLoggedin, cartItemCount } =
+	const { userData, setUserData, setIsLoggedin, cartItemCount, backendUrl } =
 		useContext(AppContext)
 
 	const sendVerificationOtp = async () => {
 		try {
 			axios.defaults.withCredentials = true
 			const { data } = await axios.post(
-				backendUrl + "/api/auth/send-verify-otp"
+				backendUrl + "/api/auth/send-verify-otp",
+				{ withCredentials: true }
 			)
 			if (data.success) {
 				navigate("/email-verify")

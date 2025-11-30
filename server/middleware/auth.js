@@ -19,8 +19,8 @@ export const isAuthenticatedUser = async (req, res, next) => {
 				.status(401)
 				.json({ success: false, message: "Пользователь не найден" })
 		}
-		req.user = user // Записываем полный объект пользователя
-		console.log("User authenticated with role:", user.role) // Логирование для отладки
+		req.user = user
+		console.log("User authenticated with role:", user.role)
 		next()
 	} catch (error) {
 		return res
@@ -31,7 +31,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
 
 export const authorizeRoles = (...roles) => {
 	return (req, res, next) => {
-		console.log("AuthorizeRoles: user role =", req.user.role) // Логирование
+		console.log("AuthorizeRoles: user role =", req.user.role)
 		if (!roles.includes(req.user.role)) {
 			return res.status(403).json({
 				success: false,

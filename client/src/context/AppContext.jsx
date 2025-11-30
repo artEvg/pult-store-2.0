@@ -1,16 +1,13 @@
 import axios from "axios"
 import { createContext, useEffect, useState } from "react"
 import { toast } from "react-toastify"
-
 export const AppContext = createContext()
 
 export const AppContextProvider = props => {
-	axios.defaults.withCredentials = true
-	const backendUrl = import.meta.env.VITE_BACKEND_URL
+	const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000"
 	const [isLoggedin, setIsLoggedin] = useState(false)
 	const [userData, setUserData] = useState(false)
 
-	// Новое состояние для корзины и количества товаров
 	const [cart, setCart] = useState(null)
 	const [cartItemCount, setCartItemCount] = useState(0)
 
@@ -27,7 +24,6 @@ export const AppContextProvider = props => {
 		}
 	}
 
-	// Загружает корзину и обновляет счетчик
 	const fetchCart = async () => {
 		try {
 			const { data } = await axios.get(backendUrl + "/api/cart", {
@@ -54,7 +50,7 @@ export const AppContextProvider = props => {
 			toast.error(error.message)
 		}
 	}
-
+	axios.defaults.withCredentials = true
 	const value = {
 		backendUrl,
 		isLoggedin,
